@@ -10,7 +10,9 @@ import {
   AfterContentChecked,
   AfterViewInit,
   AfterViewChecked,
-  OnDestroy
+  OnDestroy,
+  ViewChild,
+  ElementRef
  } from '@angular/core';
 
 @Component({
@@ -20,16 +22,17 @@ import {
   encapsulation: ViewEncapsulation.Emulated //None, Native i Emulated koji se nemora dodati, jer je default
 })
 export class ServerElementComponent implements 
-OnInit, 
-OnChanges, 
-DoCheck, 
-AfterContentInit,
-AfterContentChecked,
-AfterViewInit,
-AfterViewChecked,
-OnDestroy {
+  OnInit, 
+  OnChanges, 
+  DoCheck, 
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy {
   @Input('srvElement') element: {type: string, name: string, content: string};
   @Input() name: string;
+  @ViewChild('heading') header: ElementRef;
 
   constructor() {
     console.log('constructor called');
@@ -42,6 +45,7 @@ OnDestroy {
 
   ngOnInit() {
     console.log('ngOnInit called');
+    // console.log('Text content: ' + this.header.nativeElement.textContent);
   }
 
   ngDoCheck(): void {
@@ -58,6 +62,7 @@ OnDestroy {
 
   ngAfterViewInit(): void {
     console.log('ngAfterViewtInit called!');
+    console.log('Text content: ' + this.header.nativeElement.textContent);
   }
 
   ngAfterViewChecked(): void {
